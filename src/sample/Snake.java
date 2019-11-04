@@ -1,60 +1,64 @@
 package sample;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Snake {
     Pane headBlock;
     Coordinate head;
-    ArrayList<Coordinate> blockPosition;
-    String direction;
+    LinkedList<Coordinate> blockPosition;
+    Coordinate nextCoordinate;
+    //Arraylist for snake position, need to create nested for loop to add all panes back in after clearing.
+    //Otherwise relative positioning not maintained.
+    //Make new blank pane array and color panes according to position array.
+    String direction = "RIGHT";
 
 
     public Snake(){
         head = new Coordinate(5,5);
-
-
+        nextCoordinate = head;
+        blockPosition = new LinkedList<Coordinate>();
+        blockPosition.add(head);
     }
 
     public void update(String command){
         switch (command){
             case "UP":
-                headBlock = new Pane();
-                headBlock.setBackground(new Background(new BackgroundFill(Color.web("#"+"33cc33"), CornerRadii.EMPTY, Insets.EMPTY)));
-                headBlock.setMinSize(20,20);
+                this.direction="UP";
+                break;
+            case "DOWN":
+                this.direction="DOWN";
+                break;
+            case "LEFT":
+                this.direction="LEFT";
+                break;
+            case "RIGHT":
+                this.direction="RIGHT";
+                break;
+        }
+    }
+
+    public void paint(){
+        switch (this.direction){
+            case "UP":
                 head.y--;
                 break;
             case "DOWN":
-                headBlock = new Pane();
-                headBlock.setBackground(new Background(new BackgroundFill(Color.web("#"+"33cc33"), CornerRadii.EMPTY, Insets.EMPTY)));
-                headBlock.setMinSize(20,20);
                 head.y++;
                 break;
             case "LEFT":
-                headBlock = new Pane();
-                headBlock.setBackground(new Background(new BackgroundFill(Color.web("#"+"33cc33"), CornerRadii.EMPTY, Insets.EMPTY)));
-                headBlock.setMinSize(20,20);
                 head.x--;
                 break;
             case "RIGHT":
-                headBlock = new Pane();
-                headBlock.setBackground(new Background(new BackgroundFill(Color.web("#"+"33cc33"), CornerRadii.EMPTY, Insets.EMPTY)));
-                headBlock.setMinSize(20,20);
                 head.x++;
                 break;
-
         }
-//        headBlock = new Pane();
-//        headBlock.setBackground(new Background(new BackgroundFill(Color.web("#"+"33cc33"), CornerRadii.EMPTY, Insets.EMPTY)));
-//        headBlock.setMinSize(20,20);
-//        head.x++;
+    }
 
+    public String getDirection(){
+        return direction;
     }
 
     public Coordinate getHead() {
@@ -63,5 +67,13 @@ public class Snake {
 
     public Pane getHeadBlock() {
         return headBlock;
+    }
+
+    public LinkedList<Coordinate> getBlockPosition() {
+        return blockPosition;
+    }
+
+    public void setBlockPosition(LinkedList<Coordinate> blockPosition) {
+        this.blockPosition = blockPosition;
     }
 }

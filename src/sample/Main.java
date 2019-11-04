@@ -25,9 +25,10 @@ public class Main extends Application {
         GameBoard board = new GameBoard(snake);
         Scene scene = new Scene(board);
         //root.getChildren().add(board);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-
-
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), event -> {
+            snake.paint();
+            board.getChildren().clear();
+            board.update();
         }));
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -49,7 +50,7 @@ public class Main extends Application {
                 board.update();
             }
         });
-        timeline.setCycleCount(5);
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
         primaryStage.setTitle("Hello World");
