@@ -47,7 +47,11 @@ public class GameBoard extends GridPane {
             Pane block = new Pane();
             block.setBackground(new Background(new BackgroundFill(Color.web("#" + "33cc35"), CornerRadii.EMPTY, Insets.EMPTY)));
             block.setPrefSize(blockSize, blockSize);
-            this.add(block,position.x,position.y);
+            if(position.x>=0 && position.x<=cols
+            && position.y>=0 && position.y<=rows){
+                this.add(block,position.x,position.y);
+
+            }
         }
         //newBlockPosition.set(1, new Coordinate(newBlockPosition.getFirst().x,newBlockPosition.getFirst().y));
 
@@ -60,7 +64,6 @@ public class GameBoard extends GridPane {
             }
         }
 
-
         for (Fruit fruit : fruits) {
             if(!fruit.isHidden()) {
                 Pane block = new Pane();
@@ -68,6 +71,11 @@ public class GameBoard extends GridPane {
                 block.setPrefSize(blockSize, blockSize);
                 this.add(block, fruit.getCoordinate().x, fruit.getCoordinate().y);
             }
+        }
+        if(!(snake.getBlockPosition().getLast().x>=0 && snake.getBlockPosition().getLast().x <= cols
+        && snake.getBlockPosition().getLast().y>=0 && snake.getBlockPosition().getLast().y <= rows)){
+            System.out.println("out of bounds");
+            System.exit(1);
         }
     }
 
