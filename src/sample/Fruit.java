@@ -1,15 +1,8 @@
 package sample;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-
 public class Fruit {
-    Coordinate coordinate;
-    Boolean hide = false;
+    private Coordinate coordinate;
+    private Boolean hide = false;
 
     public Fruit(Coordinate coordinate){
         super();

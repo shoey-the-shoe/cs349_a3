@@ -6,7 +6,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -19,18 +18,23 @@ import javafx.util.Duration;
 public class Main extends Application {
 
     @Override
+    public void init() throws Exception {
+        super.init();
+    }
+
+    @Override
     public void start(Stage primaryStage) throws Exception{
         Group root = new Group();
         Snake snake = new Snake();
         GameBoard board = new GameBoard(snake);
-        Scene scene = new Scene(board);
-        //root.getChildren().add(board);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), event -> {
+        Scene level1 = new Scene(board);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.25), event -> {
             snake.paint();
             board.getChildren().clear();
             board.update();
+            System.out.println();
         }));
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        level1.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
@@ -52,9 +56,10 @@ public class Main extends Application {
         });
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(scene);
+        //timeline.setOnFinished(actionEvent -> );
+        //Gameboard constructor needs to be changed to support different level types.
+        primaryStage.setTitle("SNAKE");
+        primaryStage.setScene(level1);
         primaryStage.show();
     }
 
